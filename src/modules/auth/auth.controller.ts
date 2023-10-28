@@ -1,28 +1,24 @@
 import { Response } from 'express';
-import { SignUpDto } from './dto/sign-up.dto';
-import { User } from '../database/entities/user.entity';
-import { Controller, Post, Res, Body, Inject, HttpCode } from '@nestjs/common';
-import { HttpStatus } from '@nestjs/common';
+import { Controller, Res, HttpCode } from '@nestjs/common';
+import { Body, HttpStatus, Inject, Post } from '@nestjs/common';
+
+import { RegisterDto } from './dto/register.dto';
+import { UserService } from '../user/user.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    @Inject('USERS_REPOSITORY')
-    private readonly userModel: typeof User,
-  ) {}
+  @Inject(UserService)
+  private readonly userService: UserService;
 
-  @Post('sign-up')
-  @HttpCode(HttpStatus.CREATED)
-  async signUp(
-    @Res() res: Response,
-    @Body() { name, email, password }: SignUpDto,
-  ) {
-    const user = await this.userModel.create({
-      name,
-      email,
-      password,
+  @Post('register')
+  @HttpCode(HttpStatus.OK)
+  async registerAuth0User(@Res() res: Response, @Body() { sub }: RegisterDto) {
+    const user = await this.userService.createUser(sub);
+
+    return res.json({
+      succes: true,
+      message: 'User created succesful',
+      data: user,
     });
-
-    return res.json({ success: true, user });
   }
 }

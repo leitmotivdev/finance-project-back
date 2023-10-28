@@ -1,6 +1,7 @@
 import { Table, Column, Model, HasMany } from 'sequelize-typescript';
-import { BankPlace } from './BankPlace.entity';
-import { Wallet } from './wallet.entity';
+
+import { Wallet } from './wallet.schema';
+import { BankPlace } from './bankPlace.schema';
 
 @Table({
   tableName: 'banks',
@@ -8,11 +9,6 @@ import { Wallet } from './wallet.entity';
 export class Bank extends Model {
   @Column
   name: string;
-
-  @Column({
-    field: 'nick_name',
-  })
-  nickName: string;
 
   @HasMany(() => BankPlace)
   places: BankPlace[];

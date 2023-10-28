@@ -1,11 +1,11 @@
-import { User } from './entities/user.entity';
-import { Bank } from './entities/bank.entity';
+import { User } from './schemas/user.schema';
+import { Bank } from './schemas/bank.schema';
 import { Sequelize } from 'sequelize-typescript';
-import { Wallet } from './entities/wallet.entity';
-import { Account } from './entities/account.entity';
-import { BankPlace } from './entities/bankPlace.entity';
-import { Transaction } from './entities/transactions.entity';
-import { TransactionPlace } from './entities/transactionPlace.entity';
+import { Wallet } from './schemas/wallet.schema';
+import { BankPlace } from './schemas/bankPlace.schema';
+import { Transaction } from './schemas/transactions.schema';
+import { TransactionPlace } from './schemas/transactionPlace.schema';
+import { Profile } from './schemas/profile.schema';
 
 export const databaseProviders = [
   {
@@ -14,21 +14,21 @@ export const databaseProviders = [
       const sequelize = new Sequelize({
         dialect: 'postgres',
         host: 'localhost',
-        port: 5433,
+        port: 5432,
         username: 'postgres',
         password: '1234',
-        database: 'finance',
+        database: 'db_finance',
       });
       sequelize.addModels([
         User,
-        Account,
-        Wallet,
-        Transaction,
-        BankPlace,
         Bank,
+        Wallet,
+        Profile,
+        BankPlace,
+        Transaction,
         TransactionPlace,
       ]);
-      await sequelize.sync();
+      await sequelize.sync({ force: true });
       return sequelize;
     },
   },

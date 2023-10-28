@@ -1,5 +1,5 @@
 import { Table, Column, Model, HasMany } from 'sequelize-typescript';
-import { Transaction } from './transactions.entity';
+import { Transaction } from './transactions.schema';
 
 @Table({
   tableName: 'transaction_places',

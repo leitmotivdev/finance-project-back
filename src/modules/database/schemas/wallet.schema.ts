@@ -7,11 +7,11 @@ import {
   BelongsTo,
   ForeignKey,
 } from 'sequelize-typescript';
-import { Transaction } from './transactions.entity';
-import { Account } from './account.entity';
-import { Bank } from './bank.entity';
+import { Transaction } from './transactions.schema';
+import { Profile } from './profile.schema';
+import { Bank } from './bank.schema';
 
-enum EnumWalletType {
+export enum EnumWalletType {
   CREDIT = 'credit',
   DEBIT = 'debit',
   SERVICE = 'service',
@@ -51,12 +51,12 @@ export class Wallet extends Model {
   @HasMany(() => Transaction)
   transactions: Transaction[];
 
-  @ForeignKey(() => Account)
-  @Column({ field: 'account_id' })
-  accountId: number;
+  @ForeignKey(() => Profile)
+  @Column({ field: 'profile_id' })
+  profileId: number;
 
-  @BelongsTo(() => Account)
-  account: Account;
+  @BelongsTo(() => Profile)
+  profile: Profile;
 
   @ForeignKey(() => Bank)
   @Column({ field: 'bank_id' })

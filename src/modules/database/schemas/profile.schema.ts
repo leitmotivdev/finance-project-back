@@ -6,14 +6,14 @@ import {
   BelongsTo,
   HasMany,
 } from 'sequelize-typescript';
-import { User } from './user.entity';
-import { Wallet } from './wallet.entity';
-import { Transaction } from './transactions.entity';
+import { User } from './user.schema';
+import { Wallet } from './wallet.schema';
+import { Transaction } from './transactions.schema';
 
 @Table({
-  tableName: 'account',
+  tableName: 'profiles',
 })
-export class Account extends Model {
+export class Profile extends Model {
   @Column
   name: string;
 
@@ -28,5 +28,5 @@ export class Account extends Model {
   wallets: Wallet[];
 
   @HasMany(() => Transaction)
-  accounts: Transaction[];
+  profile: Transaction[];
 }

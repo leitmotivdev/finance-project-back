@@ -6,9 +6,9 @@ import {
   Column,
   Model,
 } from 'sequelize-typescript';
-import { Wallet } from './wallet.entity';
-import { Account } from './account.entity';
-import { TransactionPlace } from './transactionPlace.entity';
+import { Wallet } from './wallet.schema';
+import { Profile } from './profile.schema';
+import { TransactionPlace } from './transactionPlace.schema';
 
 @Table({
   tableName: 'transactions',
@@ -32,12 +32,12 @@ export class Transaction extends Model {
   @BelongsTo(() => Wallet)
   wallet: Wallet;
 
-  @ForeignKey(() => Account)
+  @ForeignKey(() => Profile)
   @Column({ field: 'account_id' })
   accountId: number;
 
-  @BelongsTo(() => Account)
-  account: Wallet;
+  @BelongsTo(() => Profile)
+  profile: Wallet;
 
   @ForeignKey(() => TransactionPlace)
   @Column({ field: 'place_id' })

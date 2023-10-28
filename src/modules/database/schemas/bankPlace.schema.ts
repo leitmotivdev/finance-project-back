@@ -5,7 +5,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { Bank } from './bank.entity';
+import { Bank } from './bank.schema';
 
 @Table({
   tableName: 'bank_places',
